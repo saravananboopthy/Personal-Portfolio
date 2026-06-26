@@ -1531,9 +1531,398 @@ footer span {
   transition: opacity .5s var(--ease-in-out), transform .5s var(--ease-in-out);
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   CINEMATIC ENHANCEMENTS — MULTI-LAYER VIDEO SYSTEM
+   Added to existing portfolio without removing any code.
+═══════════════════════════════════════════════════════════════ */
+
+/* ─── ANIMATED SVG CIRCUIT OVERLAY (global) ─── */
+#circuit-overlay {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  opacity: 0; animation: circuitFade 3s 2.5s ease forwards;
+  will-change: opacity;
+}
+@keyframes circuitFade { to { opacity: .038; } }
+
+/* ─── HERO: additional cinematic layers ─── */
+.hero-scanline {
+  position: absolute; inset: 0; z-index: 4; pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,.04) 3px,
+    rgba(0,0,0,.04) 4px
+  );
+  animation: scanShift 8s linear infinite;
+  will-change: background-position;
+}
+@keyframes scanShift {
+  from { background-position: 0 0; }
+  to   { background-position: 0 80px; }
+}
+
+.hero-glow-ring {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60vw; height: 60vw;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(184,151,90,.055) 0%, transparent 65%);
+  z-index: 3; pointer-events: none;
+  animation: glowRingPulse 7s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+@keyframes glowRingPulse {
+  0%,100% { transform: translate(-50%,-50%) scale(1); opacity: .7; }
+  50%      { transform: translate(-50%,-50%) scale(1.15); opacity: 1; }
+}
+
+/* Hero floating editorial cards */
+.hero-editorial-cards {
+  position: absolute; right: 3.5rem; top: 50%;
+  transform: translateY(-50%);
+  z-index: 6; pointer-events: none;
+  display: flex; flex-direction: column; gap: 1.1rem;
+  opacity: 0; animation: fadeUp 1s 1.4s var(--ease-out) forwards;
+}
+.hero-ecard {
+  width: 200px;
+  background: rgba(10,10,12,.72);
+  border: 1px solid rgba(184,151,90,.14);
+  backdrop-filter: blur(20px);
+  padding: 1.1rem 1.3rem;
+  position: relative; overflow: hidden;
+}
+.hero-ecard::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, transparent, var(--gold-lo), transparent);
+}
+.hero-ecard-label {
+  font-family: var(--f-mono); font-size: .46rem; letter-spacing: .38em;
+  color: var(--gold); text-transform: uppercase; margin-bottom: .4rem;
+}
+.hero-ecard-val {
+  font-family: var(--f-display); font-size: 1.1rem; font-weight: 600;
+  color: var(--bone); letter-spacing: -.02em; line-height: 1.1;
+}
+.hero-ecard-sub {
+  font-size: .65rem; color: var(--muted2); margin-top: .25rem; line-height: 1.5;
+}
+.hero-ecard-live {
+  display: inline-flex; align-items: center; gap: .38rem;
+  font-family: var(--f-mono); font-size: .42rem; letter-spacing: .28em;
+  color: var(--emerald); text-transform: uppercase; margin-top: .55rem;
+}
+.hero-ecard-live::before {
+  content:''; width:5px; height:5px; border-radius:50%;
+  background: var(--emerald);
+  animation: statusPulse 1.8s ease-in-out infinite;
+}
+
+@media (max-width: 900px) {
+  .hero-editorial-cards { display: none; }
+}
+
+/* ─── SECTION AMBIENT VIDEO WRAPPERS ─── */
+.section-vid-layer {
+  position: absolute; inset: 0; z-index: 0;
+  pointer-events: none; overflow: hidden;
+}
+.section-vid-layer video {
+  width: 100%; height: 100%; object-fit: cover;
+  will-change: transform;
+}
+
+/* about section — secondary overlay video */
+.about-vid-secondary {
+  position: absolute; inset: 0; z-index: 0;
+  pointer-events: none; overflow: hidden;
+  mix-blend-mode: screen; opacity: .04;
+}
+.about-vid-secondary video {
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+/* ─── ABOUT: floating image composition ─── */
+.about-floating-cards {
+  position: absolute; right: -2rem; top: 12%;
+  z-index: 2; pointer-events: none;
+  display: flex; flex-direction: column; gap: 1.2rem;
+  transform: translateX(30px); opacity: 0;
+  transition: transform 1.2s 0.6s var(--ease-out), opacity 1.2s 0.6s var(--ease-out);
+}
+.about-floating-cards.in {
+  transform: translateX(0); opacity: 1;
+}
+.afc {
+  width: 160px;
+  background: rgba(12,12,14,.82);
+  border: 1px solid rgba(184,151,90,.15);
+  backdrop-filter: blur(16px);
+  padding: 1rem 1.2rem;
+  position: relative;
+}
+.afc::after {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, var(--gold-lo), transparent);
+}
+.afc-icon { font-size: 1.3rem; margin-bottom: .5rem; display:block; }
+.afc-label {
+  font-family: var(--f-mono); font-size: .46rem; letter-spacing: .3em;
+  color: var(--gold); text-transform: uppercase;
+}
+.afc-val {
+  font-family: var(--f-display); font-size: 1.15rem; font-weight: 600;
+  color: var(--bone); margin-top: .2rem;
+}
+
+@media (max-width: 1100px) { .about-floating-cards { display: none; } }
+
+/* ─── TIMELINE: enhanced glow nodes ─── */
+.tl-node-glow {
+  position: absolute; top: .15rem; left: 50%;
+  transform: translateX(-50%);
+  width: 32px; height: 32px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(184,151,90,.35) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+  animation: glowPulse 3s ease-in-out infinite;
+}
+.tl-line { position: relative; }
+
+/* ─── SKILLS: animated grid glow ─── */
+.skills-grid-glow {
+  position: absolute; inset: -40px; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, rgba(0,221,192,.04) 0%, transparent 65%);
+  animation: glowRingPulse 9s ease-in-out infinite;
+}
+
+/* ─── TRADING: live chart decoration ─── */
+.trading-chart-decoration {
+  position: absolute; right: 3.5rem; top: 50%; z-index: 2;
+  transform: translateY(-50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .9s var(--ease-out);
+}
+.trading-chart-decoration.in { opacity: 1; }
+
+.tcd-box {
+  background: rgba(8,14,12,.82);
+  border: 1px solid rgba(31,170,110,.2);
+  backdrop-filter: blur(18px);
+  padding: 1.6rem;
+  position: relative;
+}
+.tcd-box::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, var(--emerald), transparent);
+  opacity: .5;
+}
+.tcd-title {
+  font-family: var(--f-mono); font-size: .52rem; letter-spacing: .35em;
+  color: var(--emerald); text-transform: uppercase; margin-bottom: .8rem;
+}
+.tcd-chart-svg { display: block; }
+.tcd-stats {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: .8rem; margin-top: 1.1rem;
+}
+.tcd-stat-label {
+  font-family: var(--f-mono); font-size: .44rem; letter-spacing: .28em;
+  color: rgba(31,170,110,.55); text-transform: uppercase;
+}
+.tcd-stat-val {
+  font-family: var(--f-display); font-size: 1.15rem; font-weight: 600;
+  color: var(--bone); letter-spacing: -.02em;
+}
+.tcd-stat-chg {
+  font-family: var(--f-mono); font-size: .5rem; letter-spacing: .1em;
+}
+.tcd-stat-chg.up { color: var(--emerald); }
+.tcd-stat-chg.dn { color: var(--red); }
+
+@media (max-width: 1100px) { .trading-chart-decoration { display: none; } }
+
+/* ─── PROJECTS: expanded hover depth & color accent lines ─── */
+.proj[data-c="blue"]:hover .proj-title { color: var(--blue); }
+.proj[data-c="red"]:hover .proj-title { color: var(--red); }
+.proj[data-c="emerald"]:hover .proj-title { color: var(--emerald); }
+.proj[data-c="orange"]:hover .proj-title { color: #e07a2a; }
+.proj[data-c="purple"]:hover .proj-title { color: var(--purple); }
+
+/* ─── CONTACT: ambient network dots ─── */
+#contact-dots-canvas {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  will-change: transform;
+}
+
+/* ─── LOADER: enhanced multi-layer ─── */
+.loader-orb {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  animation: orbFloat 6s ease-in-out infinite;
+  will-change: transform;
+}
+.loader-orb-1 {
+  width: 420px; height: 420px;
+  top: 50%; left: 50%; margin: -210px 0 0 -210px;
+  background: radial-gradient(ellipse, rgba(184,151,90,.08) 0%, transparent 65%);
+  animation-delay: 0s;
+}
+.loader-orb-2 {
+  width: 280px; height: 280px;
+  top: 20%; right: 15%;
+  background: radial-gradient(ellipse, rgba(0,221,192,.05) 0%, transparent 65%);
+  animation-delay: -2s;
+}
+.loader-orb-3 {
+  width: 200px; height: 200px;
+  bottom: 18%; left: 12%;
+  background: radial-gradient(ellipse, rgba(124,92,219,.06) 0%, transparent 65%);
+  animation-delay: -4s;
+}
+@keyframes orbFloat {
+  0%,100% { transform: translateY(0) scale(1); }
+  33%      { transform: translateY(-18px) scale(1.05); }
+  66%      { transform: translateY(10px) scale(.96); }
+}
+
+/* ─── SCROLL PROGRESS BAR ─── */
+#scroll-progress {
+  position: fixed; top: 0; left: 0; z-index: 9999;
+  height: 2px; width: 0%;
+  background: linear-gradient(90deg, var(--gold), var(--cyan));
+  transition: width .08s linear;
+  pointer-events: none;
+  will-change: width;
+}
+
+/* ─── SECTION WATERMARKS ─── */
+.section-watermark {
+  position: absolute; right: 2rem; bottom: 2rem; z-index: 0;
+  font-family: var(--f-display);
+  font-size: clamp(5rem,10vw,12rem);
+  font-weight: 700; letter-spacing: -.06em;
+  color: transparent; -webkit-text-stroke: 1px rgba(184,151,90,.04);
+  pointer-events: none; user-select: none;
+  line-height: 1; opacity: 0;
+  transition: opacity 1.4s 0.2s var(--ease-out);
+}
+.section-watermark.in { opacity: 1; }
+
+/* ─── NOISE TEXTURE overlay per section (very subtle) ─── */
+.noise-layer {
+  position: absolute; inset: 0; z-index: 9; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  opacity: .55; mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* ─── HERO BOTTOM DATA BAR ─── */
+.hero-data-bar {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 7;
+  display: flex; align-items: center; gap: 2.5rem;
+  padding: 0.9rem 3.5rem;
+  background: linear-gradient(to top, rgba(6,6,7,.85) 0%, transparent 100%);
+  border-top: 1px solid rgba(184,151,90,.07);
+  opacity: 0; animation: fadeUp .8s 2s ease forwards;
+  pointer-events: none;
+}
+.hero-data-item {
+  display: flex; flex-direction: column; gap: .15rem;
+}
+.hero-data-label {
+  font-family: var(--f-mono); font-size: .42rem; letter-spacing: .38em;
+  color: var(--gold); text-transform: uppercase;
+}
+.hero-data-val {
+  font-family: var(--f-mono); font-size: .6rem; letter-spacing: .15em; color: var(--muted2);
+}
+.hero-data-sep {
+  width: 1px; height: 28px; background: rgba(184,151,90,.12); flex-shrink: 0;
+}
+@media (max-width: 900px) { .hero-data-bar { display: none; } }
+
+/* ─── MAGAZINE IMAGE STACK (About section enhancement) ─── */
+.about-img-stack {
+  position: absolute; bottom: -2rem; right: -1.5rem; z-index: 3;
+  width: 160px; pointer-events: none;
+  display: flex; flex-direction: column; gap: .6rem;
+}
+.about-img-stack img {
+  width: 100%; height: 100px; object-fit: cover;
+  border: 1px solid rgba(184,151,90,.15);
+  filter: brightness(.65) saturate(1.4);
+  transform: rotate(2deg);
+  animation: floatY 7s ease-in-out infinite;
+}
+.about-img-stack img:nth-child(2) {
+  transform: rotate(-1.5deg);
+  animation-delay: -3s;
+}
+@media (max-width: 1100px) { .about-img-stack { display: none; } }
+
+/* ─── TIMELINE: floating year accent ─── */
+.tl-accent-year {
+  position: absolute; right: -1rem; top: 0;
+  font-family: var(--f-display); font-size: 7rem; font-weight: 700;
+  color: transparent; -webkit-text-stroke: 1px rgba(184,151,90,.05);
+  line-height: 1; pointer-events: none; letter-spacing: -.06em;
+}
+
+/* ─── SKILLS: group divider animation ─── */
+.skills-divider {
+  width: 100%; height: 1px; margin: 1.5rem 0 0;
+  background: linear-gradient(90deg, rgba(0,221,192,.12), transparent);
+  position: relative; overflow: hidden;
+}
+.skills-divider::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(90deg, var(--cyan), transparent);
+  animation: dividerScan 3s linear infinite;
+  will-change: transform;
+}
+@keyframes dividerScan {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(200%); }
+}
+
+/* ─── CONTACT: large ambient glow ─── */
+.contact-ambient-glow {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70vw; height: 70vh;
+  background: radial-gradient(ellipse, rgba(184,151,90,.055) 0%, transparent 65%);
+  z-index: 1; pointer-events: none;
+  animation: glowRingPulse 10s ease-in-out infinite;
+}
+
+/* ─── CURSOR TRAIL CANVAS ─── */
+#trail-canvas {
+  position: fixed; inset: 0; z-index: 8997; pointer-events: none;
+  will-change: transform;
+}
+
+/* ─── SECTION TRANSITION GRADIENT ─── */
+.section-fade-top {
+  position: absolute; top: 0; left: 0; right: 0; height: 120px;
+  background: linear-gradient(to bottom, var(--ink) 0%, transparent 100%);
+  z-index: 2; pointer-events: none;
+}
+.section-fade-bottom {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
+  background: linear-gradient(to top, var(--ink) 0%, transparent 100%);
+  z-index: 2; pointer-events: none;
+}
+
 </style>
 </head>
 <body class="loading">
+
+<!-- ── SCROLL PROGRESS ── -->
+<div id="scroll-progress" aria-hidden="true"></div>
+
+<!-- ── CURSOR TRAIL ── -->
+<canvas id="trail-canvas" aria-hidden="true"></canvas>
 
 <!-- ── FILM GRAIN ── -->
 <div class="grain" aria-hidden="true"></div>
@@ -1542,10 +1931,35 @@ footer span {
 <div id="cursor-dot" aria-hidden="true"></div>
 <div id="cursor-ring" aria-hidden="true"></div>
 
+<!-- ── CIRCUIT SVG OVERLAY ── -->
+<svg id="circuit-overlay" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <g stroke="#b8975a" stroke-width="0.5" fill="none" opacity="0.6">
+    <!-- Horizontal lines -->
+    <line x1="0" y1="120" x2="200" y2="120"/><circle cx="200" cy="120" r="3" fill="#b8975a"/>
+    <line x1="200" y1="120" x2="200" y2="200"/><line x1="200" y1="200" x2="420" y2="200"/>
+    <circle cx="420" cy="200" r="2" fill="#b8975a"/>
+    <line x1="420" y1="200" x2="420" y2="350"/><line x1="420" y1="350" x2="680" y2="350"/>
+    <circle cx="680" cy="350" r="3" fill="#b8975a"/>
+    <line x1="0" y1="450" x2="180" y2="450"/><circle cx="180" cy="450" r="2" fill="#b8975a"/>
+    <line x1="180" y1="450" x2="180" y2="520"/><line x1="180" y1="520" x2="360" y2="520"/>
+    <line x1="0" y1="680" x2="120" y2="680"/><circle cx="120" cy="680" r="3" fill="#b8975a"/>
+    <line x1="120" y1="680" x2="120" y2="760"/><line x1="120" y1="760" x2="300" y2="760"/>
+    <!-- Right side -->
+    <line x1="1440" y1="180" x2="1240" y2="180"/><circle cx="1240" cy="180" r="3" fill="#b8975a"/>
+    <line x1="1240" y1="180" x2="1240" y2="280"/><line x1="1240" y1="280" x2="1060" y2="280"/>
+    <line x1="1440" y1="550" x2="1300" y2="550"/><circle cx="1300" cy="550" r="2" fill="#b8975a"/>
+    <line x1="1300" y1="550" x2="1300" y2="650"/><line x1="1300" y1="650" x2="1140" y2="650"/>
+    <circle cx="1140" cy="650" r="3" fill="#b8975a"/>
+  </g>
+</svg>
+
 <!-- ════════════════════════════════════════════════════════════════
      LOADING SCREEN
 ════════════════════════════════════════════════════════════════ -->
 <div id="loader" role="status" aria-label="Loading portfolio">
+  <div class="loader-orb loader-orb-1" aria-hidden="true"></div>
+  <div class="loader-orb loader-orb-2" aria-hidden="true"></div>
+  <div class="loader-orb loader-orb-3" aria-hidden="true"></div>
   <img
     class="loader-bg-video"
     src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1920&q=60&auto=format&fit=crop"
@@ -1721,6 +2135,55 @@ footer span {
 
   <div class="hero-caption" id="heroCaption" aria-hidden="true">Artificial Intelligence</div>
 
+  <!-- Cinematic glow ring -->
+  <div class="hero-glow-ring" aria-hidden="true"></div>
+
+  <!-- Scanline overlay -->
+  <div class="hero-scanline" aria-hidden="true"></div>
+
+  <!-- Floating editorial info cards (desktop) -->
+  <div class="hero-editorial-cards" aria-hidden="true">
+    <div class="hero-ecard float">
+      <div class="hero-ecard-label">Current Status</div>
+      <div class="hero-ecard-val">B.Tech AI & DS</div>
+      <div class="hero-ecard-sub">Dr N.G.P. Institute of Technology</div>
+      <div class="hero-ecard-live">Open to Work</div>
+    </div>
+    <div class="hero-ecard float-2">
+      <div class="hero-ecard-label">Academic Score</div>
+      <div class="hero-ecard-val">CGPA 8.2</div>
+      <div class="hero-ecard-sub">till 5th Semester · 2027</div>
+    </div>
+    <div class="hero-ecard float">
+      <div class="hero-ecard-label">Location</div>
+      <div class="hero-ecard-val">Coimbatore</div>
+      <div class="hero-ecard-sub">Tamil Nadu, India</div>
+    </div>
+  </div>
+
+  <!-- Bottom data bar -->
+  <div class="hero-data-bar" aria-hidden="true">
+    <div class="hero-data-item">
+      <span class="hero-data-label">Specialization</span>
+      <span class="hero-data-val">AI · FinTech · Data Science</span>
+    </div>
+    <div class="hero-data-sep"></div>
+    <div class="hero-data-item">
+      <span class="hero-data-label">Projects</span>
+      <span class="hero-data-val">5+ AI Systems</span>
+    </div>
+    <div class="hero-data-sep"></div>
+    <div class="hero-data-item">
+      <span class="hero-data-label">Certifications</span>
+      <span class="hero-data-val">NPTEL · NISM · Microsoft</span>
+    </div>
+    <div class="hero-data-sep"></div>
+    <div class="hero-data-item">
+      <span class="hero-data-label">Contact</span>
+      <span class="hero-data-val">saravananb600@gmail.com</span>
+    </div>
+  </div>
+
 </section>
 
 <!-- ════════════════════════════════════════════════════════════════
@@ -1770,6 +2233,31 @@ footer span {
       >
       <div class="about-media-overlay"></div>
       <span class="about-media-tag">B.Tech — Artificial Intelligence &amp; Data Science</span>
+
+      <!-- Magazine image stack -->
+      <div class="about-img-stack" aria-hidden="true">
+        <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=400&q=70&auto=format&fit=crop" alt="" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?w=400&q=70&auto=format&fit=crop" alt="" loading="lazy">
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating info cards -->
+  <div class="about-floating-cards reveal" aria-hidden="true">
+    <div class="afc">
+      <span class="afc-icon">🎓</span>
+      <div class="afc-label">Education</div>
+      <div class="afc-val">B.Tech AI &amp; DS</div>
+    </div>
+    <div class="afc">
+      <span class="afc-icon">📊</span>
+      <div class="afc-label">CGPA</div>
+      <div class="afc-val">8.2 / 10</div>
+    </div>
+    <div class="afc">
+      <span class="afc-icon">🤝</span>
+      <div class="afc-label">Internship</div>
+      <div class="afc-val">Appin Tech</div>
     </div>
   </div>
 
@@ -1856,6 +2344,9 @@ footer span {
     <div class="timeline-section-bg-grad"></div>
   </div>
 
+  <div class="noise-layer" aria-hidden="true"></div>
+  <div class="section-watermark reveal" aria-hidden="true">Journey</div>
+
   <div class="timeline-inner">
     <div class="section-label reveal">Experience</div>
     <h2 class="timeline-heading reveal reveal-d1">
@@ -1926,6 +2417,9 @@ footer span {
     >
     <div class="skills-media-overlay"></div>
   </div>
+
+  <div class="noise-layer" aria-hidden="true"></div>
+  <div class="section-watermark reveal" aria-hidden="true">Skills</div>
 
   <div class="skills-inner">
     <div class="section-label reveal">Expertise</div>
@@ -2166,6 +2660,56 @@ footer span {
       alt="" loading="lazy" decoding="async" width="1920" height="1080"
     >
     <div class="trading-media-overlay"></div>
+  </div>
+
+  <div class="noise-layer" aria-hidden="true"></div>
+  <div class="section-watermark reveal" style="-webkit-text-stroke-color: rgba(31,170,110,.04);" aria-hidden="true">Markets</div>
+
+  <!-- Animated chart decoration panel -->
+  <div class="trading-chart-decoration reveal" aria-hidden="true">
+    <div class="tcd-box">
+      <div class="tcd-title">XAUUSD · Live Chart</div>
+      <svg class="tcd-chart-svg" width="260" height="90" viewBox="0 0 260 90">
+        <defs>
+          <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1faa6e" stop-opacity=".4"/>
+            <stop offset="100%" stop-color="#1faa6e" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <!-- Area fill -->
+        <path d="M0,70 C20,65 35,55 55,48 C75,41 90,52 110,45 C130,38 145,28 165,22 C185,16 200,30 220,18 C235,10 245,14 260,8 L260,90 L0,90 Z" fill="url(#chartGrad)"/>
+        <!-- Line -->
+        <path d="M0,70 C20,65 35,55 55,48 C75,41 90,52 110,45 C130,38 145,28 165,22 C185,16 200,30 220,18 C235,10 245,14 260,8" fill="none" stroke="#1faa6e" stroke-width="1.5"/>
+        <!-- Dot at end -->
+        <circle cx="260" cy="8" r="3" fill="#1faa6e"/>
+        <circle cx="260" cy="8" r="6" fill="none" stroke="#1faa6e" stroke-width="1" opacity="0.4">
+          <animate attributeName="r" values="3;9;3" dur="2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.4;0;0.4" dur="2s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+      <div class="tcd-stats">
+        <div>
+          <div class="tcd-stat-label">Price</div>
+          <div class="tcd-stat-val">2341.50</div>
+          <div class="tcd-stat-chg up">▲ +0.82%</div>
+        </div>
+        <div>
+          <div class="tcd-stat-label">Session High</div>
+          <div class="tcd-stat-val">2348.20</div>
+          <div class="tcd-stat-chg up">▲ +1.11%</div>
+        </div>
+        <div>
+          <div class="tcd-stat-label">Volume</div>
+          <div class="tcd-stat-val">142.8K</div>
+          <div class="tcd-stat-chg dn">▼ −2.3%</div>
+        </div>
+        <div>
+          <div class="tcd-stat-label">Spread</div>
+          <div class="tcd-stat-val">0.35</div>
+          <div class="tcd-stat-chg up">▲ Tight</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="trading-inner">
@@ -2462,7 +3006,10 @@ footer span {
     >
     <div class="contact-media-overlay"></div>
   </div>
+  <canvas id="contact-dots-canvas" aria-hidden="true"></canvas>
+  <div class="contact-ambient-glow" aria-hidden="true"></div>
   <div class="contact-light" aria-hidden="true"></div>
+  <div class="noise-layer" aria-hidden="true"></div>
 
   <div class="contact-inner">
     <div class="section-label reveal" style="justify-content:center;">Let's Connect</div>
@@ -2885,6 +3432,208 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     roles[current].classList.add('active');
   }, 2800);
 })();
+
+/* ══════════════════════════════════════
+   SCROLL PROGRESS BAR
+══════════════════════════════════════ */
+(function() {
+  const bar = document.getElementById('scroll-progress');
+  if (!bar) return;
+  function update() {
+    const scrolled = window.scrollY;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = Math.min(100, (scrolled / max) * 100) + '%';
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+
+/* ══════════════════════════════════════
+   CURSOR TRAIL — LIGHT PARTICLES
+══════════════════════════════════════ */
+(function() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const canvas = document.getElementById('trail-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H;
+  const trail = [];
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  let mx = -999, my = -999;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    if (Math.random() > 0.55) {
+      trail.push({ x: mx, y: my, life: 1, size: Math.random() * 2.5 + .5 });
+    }
+    for (let i = trail.length - 1; i >= 0; i--) {
+      const p = trail[i];
+      p.life -= 0.038;
+      p.y -= 0.4;
+      p.x += (Math.random() - .5) * 0.5;
+      if (p.life <= 0) { trail.splice(i, 1); continue; }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(184,151,90,${p.life * 0.18})`;
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ══════════════════════════════════════
+   CONTACT — NETWORK DOTS ANIMATION
+══════════════════════════════════════ */
+(function() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const canvas = document.getElementById('contact-dots-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes = [];
+  const COUNT = 38;
+
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    W = canvas.width  = rect.width  || window.innerWidth;
+    H = canvas.height = rect.height || window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  function rand(a,b) { return a + Math.random()*(b-a); }
+  for (let i = 0; i < COUNT; i++) {
+    nodes.push({ x: rand(0,W), y: rand(0,H), vx: rand(-.18,.18), vy: rand(-.18,.18), r: rand(1.2,2.8) });
+  }
+
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    // Draw connections
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i+1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 140) {
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = `rgba(184,151,90,${(1 - dist/140) * 0.08})`;
+          ctx.lineWidth = .5;
+          ctx.stroke();
+        }
+      }
+    }
+    // Draw nodes
+    nodes.forEach(n => {
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < 0) n.x = W; if (n.x > W) n.x = 0;
+      if (n.y < 0) n.y = H; if (n.y > H) n.y = 0;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(184,151,90,0.12)';
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ══════════════════════════════════════
+   TRADING CHART — LIVE PRICE ANIMATION
+══════════════════════════════════════ */
+(function() {
+  const statVals = document.querySelectorAll('.tcd-stat-val');
+  if (!statVals.length) return;
+  let last = 0;
+  function update(ts) {
+    if (ts - last > 3200) {
+      const base = 2341.50;
+      const drift = (Math.random() - .48) * 4.5;
+      const price = (base + drift).toFixed(2);
+      if (statVals[0]) statVals[0].textContent = price;
+      last = ts;
+    }
+    requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+})();
+
+/* ══════════════════════════════════════
+   SECTION WATERMARK REVEAL
+══════════════════════════════════════ */
+(function() {
+  const obsWM = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        obsWM.unobserve(e.target);
+      }
+    });
+  }, { threshold: .05 });
+  document.querySelectorAll('.section-watermark').forEach(el => obsWM.observe(el));
+})();
+
+/* ══════════════════════════════════════
+   TRADING CHART DECORATION REVEAL
+══════════════════════════════════════ */
+(function() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+    });
+  }, { threshold: .1 });
+  document.querySelectorAll('.trading-chart-decoration, .about-floating-cards').forEach(el => obs.observe(el));
+})();
+
+/* ══════════════════════════════════════
+   DYNAMIC TICKER — real fluctuation
+══════════════════════════════════════ */
+(function() {
+  const pairs = [
+    { sym:'XAUUSD', base:2341.50, decimals:2, unit:1   },
+    { sym:'EURUSD', base:1.0842,  decimals:4, unit:.001 },
+    { sym:'GBPUSD', base:1.2691,  decimals:4, unit:.001 },
+    { sym:'USDJPY', base:156.34,  decimals:2, unit:.1   },
+    { sym:'NIFTY50',base:24388,   decimals:0, unit:10   },
+    { sym:'BTCUSD', base:68220,   decimals:0, unit:50   },
+    { sym:'EURCHF', base:0.9421,  decimals:4, unit:.001 },
+    { sym:'AUDNZD', base:1.0873,  decimals:4, unit:.001 }
+  ];
+  let last = 0;
+  function update(ts) {
+    if (ts - last > 2800) {
+      const items = document.querySelectorAll('.ticker-item');
+      items.forEach((item, i) => {
+        const pair = pairs[i % pairs.length];
+        if (!pair) return;
+        const drift = (Math.random() - .49) * pair.unit * 2.5;
+        const newVal = pair.base + drift;
+        const chg = ((drift / pair.base) * 100).toFixed(2);
+        const valEl  = item.querySelector('.ticker-val');
+        const chgEl  = item.querySelector('.ticker-chg');
+        if (valEl) valEl.textContent = pair.decimals > 0 ? newVal.toFixed(pair.decimals) : Math.round(newVal).toLocaleString();
+        if (chgEl) {
+          const up = parseFloat(chg) >= 0;
+          chgEl.textContent = up ? `▲ +${chg}%` : `▼ ${chg}%`;
+          chgEl.className = 'ticker-chg ' + (up ? 'up' : 'dn');
+        }
+      });
+      last = ts;
+    }
+    requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+})();
+
 </script>
 
 </body>
