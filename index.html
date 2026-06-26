@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Saravanan — AI · FinTech · Data</title>
-<meta name="description" content="Saravanan — AI Engineer, FinTech Analyst, Data Scientist. Building intelligent systems at the intersection of technology and finance.">
+<title>Saravanan — AI Engineer · FinTech Analyst · Data Science</title>
+<meta name="description" content="Saravanan — AI Engineer, FinTech & Financial Market Analyst, Computer Vision Developer, Data Science Student at Dr N.G.P. Institute of Technology, Coimbatore.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,200;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -934,6 +934,94 @@ nav.scrolled {
 .skills-group-label:first-child { margin-top: 0; }
 
 /* ═══════════════════════════════════════════════════════════════
+   INTERESTS — ANIMATED CARDS
+═══════════════════════════════════════════════════════════════ */
+#interests {
+  padding: 9rem 3.5rem; position: relative; overflow: hidden;
+  background: var(--ink2);
+}
+.interests-media { position: absolute; inset: 0; z-index: 0; }
+.interests-media img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(.08) saturate(1.8) hue-rotate(200deg) contrast(1.25);
+  will-change: transform;
+}
+.interests-media-overlay {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(184,151,90,.07) 0%, rgba(6,6,7,.82) 60%),
+    linear-gradient(180deg, rgba(6,6,7,.65) 0%, transparent 35%, rgba(6,6,7,.65) 100%);
+}
+.interests-inner { position: relative; z-index: 1; max-width: 1200px; }
+.interests-heading {
+  font-family: var(--f-display);
+  font-size: clamp(3.5rem, 7vw, 8rem);
+  font-weight: 300; letter-spacing: -.035em; line-height: .88;
+  margin-bottom: 5rem;
+}
+.interests-heading .outline {
+  color: transparent; -webkit-text-stroke: 1px rgba(237,233,225,.28);
+  font-style: italic; display: block;
+}
+.interests-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+}
+.interest-card {
+  background: rgba(12,12,14,.75);
+  border: 1px solid rgba(237,233,225,.07);
+  backdrop-filter: blur(18px);
+  padding: 2.4rem 2rem;
+  position: relative; overflow: hidden;
+  cursor: none;
+  transition: border-color .45s, transform .45s var(--ease-out), background .45s;
+}
+.interest-card::before {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(135deg, rgba(184,151,90,.04) 0%, transparent 65%);
+  pointer-events: none;
+}
+.interest-card::after {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0); transform-origin: center;
+  transition: transform .55s var(--ease-out);
+}
+.interest-card:hover {
+  border-color: rgba(184,151,90,.32);
+  transform: translateY(-8px);
+  background: rgba(16,16,18,.85);
+}
+.interest-card:hover::after { transform: scaleX(1); }
+.interest-icon {
+  font-size: 1.8rem; margin-bottom: 1.3rem; display: block; line-height: 1;
+}
+.interest-title {
+  font-family: var(--f-display); font-size: 1.2rem; font-weight: 600;
+  letter-spacing: -.01em; margin-bottom: .55rem; color: var(--bone);
+  transition: color .3s;
+}
+.interest-card:hover .interest-title { color: var(--gold); }
+.interest-desc {
+  font-size: .8rem; color: var(--muted); line-height: 1.75;
+}
+.interest-tag {
+  font-family: var(--f-mono); font-size: .5rem; letter-spacing: .22em;
+  text-transform: uppercase; padding: .22rem .65rem; margin-top: 1.2rem;
+  border: 1px solid rgba(184,151,90,.18); color: rgba(184,151,90,.5);
+  display: inline-block;
+  transition: border-color .3s, color .3s;
+}
+.interest-card:hover .interest-tag { border-color: rgba(184,151,90,.4); color: rgba(184,151,90,.8); }
+
+@media (max-width: 900px) {
+  .interests-grid { grid-template-columns: repeat(2, 1fr); }
+  #interests { padding: 6rem 2rem; }
+}
+@media (max-width: 600px) {
+  .interests-grid { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    TRADING / FINTECH
 ═══════════════════════════════════════════════════════════════ */
 #trading {
@@ -1417,6 +1505,32 @@ footer span {
   }
   .grain { animation: none; }
 }
+
+/* ─── HERO ROTATING ROLES ─── */
+.hero-roles {
+  position: relative; height: 2.8rem;
+  overflow: hidden; margin-bottom: 1.5rem;
+  min-width: 0;
+}
+.hero-role {
+  display: block; position: absolute; top: 0; left: 0;
+  font-family: var(--f-display);
+  font-size: clamp(1.1rem, 2.2vw, 1.8rem);
+  font-weight: 300; font-style: italic;
+  color: var(--gold);
+  letter-spacing: -.01em; line-height: 1.3;
+  opacity: 0; transform: translateY(30px);
+  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+  white-space: nowrap;
+}
+.hero-role.active {
+  opacity: 1; transform: translateY(0);
+}
+.hero-role.exit {
+  opacity: 0; transform: translateY(-30px);
+  transition: opacity .5s var(--ease-in-out), transform .5s var(--ease-in-out);
+}
+
 </style>
 </head>
 <body class="loading">
@@ -1464,6 +1578,7 @@ footer span {
   <a href="#hero" class="nav-logo">Saravanan — Portfolio</a>
   <div class="nav-right">
     <a href="#projects" class="nav-link">Work</a>
+    <a href="#interests" class="nav-link">Interests</a>
     <a href="#about" class="nav-link">About</a>
     <a href="#contact" class="nav-link">Contact</a>
     <button class="nav-menu-btn" onclick="openMenu()" aria-expanded="false" id="menuBtn">
@@ -1480,15 +1595,16 @@ footer span {
     <li><a href="#about" onclick="closeMenu()"><span class="menu-num">02</span>About</a></li>
     <li><a href="#timeline" onclick="closeMenu()"><span class="menu-num">03</span>Experience</a></li>
     <li><a href="#skills" onclick="closeMenu()"><span class="menu-num">04</span>Skills</a></li>
-    <li><a href="#trading" onclick="closeMenu()"><span class="menu-num">05</span>FinTech</a></li>
-    <li><a href="#projects" onclick="closeMenu()"><span class="menu-num">06</span>Projects</a></li>
-    <li><a href="#courses" onclick="closeMenu()"><span class="menu-num">07</span>Education</a></li>
-    <li><a href="#contact" onclick="closeMenu()"><span class="menu-num">08</span>Contact</a></li>
+    <li><a href="#interests" onclick="closeMenu()"><span class="menu-num">05</span>Interests</a></li>
+    <li><a href="#trading" onclick="closeMenu()"><span class="menu-num">06</span>FinTech</a></li>
+    <li><a href="#projects" onclick="closeMenu()"><span class="menu-num">07</span>Projects</a></li>
+    <li><a href="#courses" onclick="closeMenu()"><span class="menu-num">08</span>Education</a></li>
+    <li><a href="#contact" onclick="closeMenu()"><span class="menu-num">09</span>Contact</a></li>
   </ul>
   <div class="menu-info">
     <div class="menu-info-label">Available for opportunities</div>
     <p class="menu-info-text">
-      Saravanan — AI Engineer, Data Scientist &amp; FinTech Analyst building intelligent systems at the frontier of technology.
+      Saravanan — AI Engineer, FinTech &amp; Financial Market Analyst, Computer Vision Developer &amp; Data Science Student at Dr N.G.P. Institute of Technology, Coimbatore.
     </p>
     <p class="menu-info-text" style="margin-top:1.5rem;font-size:.82rem;color:rgba(237,233,225,.32);">
       Coimbatore, Tamil Nadu, India<br>
@@ -1499,7 +1615,7 @@ footer span {
       Open to Work
     </div>
   </div>
-  <div class="menu-meta">© 2024 Saravanan — AI · FinTech · Data</div>
+  <div class="menu-meta">© 2025 Saravanan — AI · FinTech · Data Science</div>
 </div>
 
 <!-- ════════════════════════════════════════════════════════════════
@@ -1578,13 +1694,18 @@ footer span {
     <div class="hero-eyebrow">
       <span>Available for opportunities — Coimbatore, India</span>
     </div>
-    <h1 class="hero-name" aria-label="Saravanan — Engineer">
+    <h1 class="hero-name" aria-label="Saravanan — AI Engineer">
       <span class="line"><span>Saravanan</span></span>
-      <span class="line"><span>Engineer</span></span>
-      <span class="line"><span>&amp; Builder</span></span>
     </h1>
+    <p class="hero-roles" id="heroRoles">
+      <span class="hero-role active">Artificial Intelligence Engineer</span>
+      <span class="hero-role">AI Research Enthusiast</span>
+      <span class="hero-role">FinTech &amp; Financial Market Analyst</span>
+      <span class="hero-role">Computer Vision Developer</span>
+      <span class="hero-role">Data Science Student</span>
+    </p>
     <p class="hero-sub">
-      AI · Machine Learning · FinTech · Data Science<br>
+      B.Tech AI &amp; Data Science · Dr N.G.P. Institute of Technology, Coimbatore<br>
       Building intelligent systems at the intersection of technology and markets.
     </p>
     <a href="#projects" class="hero-cta">
@@ -1648,19 +1769,19 @@ footer span {
         loading="lazy" decoding="async" width="1200" height="1600"
       >
       <div class="about-media-overlay"></div>
-      <span class="about-media-tag">B.E. Computer Science &amp; Engineering</span>
+      <span class="about-media-tag">B.Tech — Artificial Intelligence &amp; Data Science</span>
     </div>
   </div>
 
   <div class="about-text">
     <div class="section-label reveal">About</div>
     <h2 class="about-statement reveal reveal-d1">
-      Engineering the <em>intelligence</em><br>
-      behind tomorrow's<br>
-      <span class="outline">systems.</span>
+      Building the <em>intelligence</em><br>
+      at the frontier of<br>
+      <span class="outline">AI &amp; FinTech.</span>
     </h2>
     <p class="about-bio reveal reveal-d2">
-      I'm Saravanan — a Computer Science &amp; Engineering student at Sri Ramakrishna Engineering College, Coimbatore. I build AI-powered systems that sit at the intersection of machine learning, financial data, and real-world impact. From hand gesture interfaces to healthcare diagnostics, my work is driven by precision and purpose.
+      I'm Saravanan — a B.Tech student in Artificial Intelligence &amp; Data Science at Dr N.G.P. Institute of Technology, Coimbatore (CGPA: 8.2). I'm passionate about Financial Technology, data analytics, and AI-driven solutions. From hand gesture interfaces to healthcare diagnostics and trading dashboards, my work bridges machine intelligence with real-world impact. I combine strong research and analytical thinking with creative problem solving to build systems that matter.
     </p>
 
     <div class="about-stats reveal reveal-d3">
@@ -1673,11 +1794,11 @@ footer span {
         <div class="stat-l">Certifications</div>
       </div>
       <div class="stat">
-        <span class="stat-n">3</span>
-        <div class="stat-l">Domain Focus Areas</div>
+        <span class="stat-n">8.2</span>
+        <div class="stat-l">CGPA (till Sem 5)</div>
       </div>
       <div class="stat">
-        <span class="stat-n">2025</span>
+        <span class="stat-n">2027</span>
         <div class="stat-l">Graduation Year</div>
       </div>
     </div>
@@ -1743,32 +1864,32 @@ footer span {
     </h2>
 
     <div class="tl-item">
+      <div class="tl-year">2026</div>
+      <div class="tl-line"></div>
+      <div class="tl-content">
+        <div class="tl-role">Certification — NPTEL</div>
+        <div class="tl-title">Human Computer Interaction — Elite + Gold</div>
+        <div class="tl-desc">Achieved ELITE + GOLD distinction (Feb–Apr 2026). Studied interaction design, cognitive ergonomics, UI/UX systems, and accessibility principles — directly applied in the Hand Gesture Recognition project.</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
       <div class="tl-year">2025</div>
       <div class="tl-line"></div>
       <div class="tl-content">
-        <div class="tl-role">Present</div>
-        <div class="tl-title">B.E. Computer Science &amp; Engineering</div>
-        <div class="tl-desc">Sri Ramakrishna Engineering College, Coimbatore — Deep focus on AI, machine learning, and financial technology. Multiple award-winning projects in computer vision and natural language processing.</div>
+        <div class="tl-role">Internship — Appin Technology</div>
+        <div class="tl-title">Data Science Internship</div>
+        <div class="tl-desc">Assisted in data preprocessing and cleaning using Python, ensuring high-quality datasets for analysis. Developed visualizations in Tableau, contributing to a 15% improvement in project efficiency. Collaborated with a team of 4 to build predictive models, enhancing decision-making processes.</div>
       </div>
     </div>
 
     <div class="tl-item">
-      <div class="tl-year">2024</div>
+      <div class="tl-year">2025</div>
       <div class="tl-line"></div>
       <div class="tl-content">
-        <div class="tl-role">Certification</div>
-        <div class="tl-title">NPTEL — Human Computer Interaction</div>
-        <div class="tl-desc">Achieved ELITE + GOLD distinction from IIT Madras. Studied interaction design, cognitive ergonomics, and UI/UX systems — directly applied in the Hand Gesture Recognition project.</div>
-      </div>
-    </div>
-
-    <div class="tl-item">
-      <div class="tl-year">2024</div>
-      <div class="tl-line"></div>
-      <div class="tl-content">
-        <div class="tl-role">Certification</div>
-        <div class="tl-title">NISM — Investor Education</div>
-        <div class="tl-desc">Certified by the National Institute of Securities Markets. Comprehensive study of Indian financial markets, equity instruments, and NSE ecosystem dynamics.</div>
+        <div class="tl-role">Certification — NPTEL</div>
+        <div class="tl-title">Social Networks — Elite</div>
+        <div class="tl-desc">Achieved ELITE distinction (Jun–Nov 2025). Studied network analysis, graph theory, information diffusion, and social computing — strengthening analytical and research capabilities.</div>
       </div>
     </div>
 
@@ -1776,9 +1897,9 @@ footer span {
       <div class="tl-year">2023</div>
       <div class="tl-line"></div>
       <div class="tl-content">
-        <div class="tl-role">Certification</div>
-        <div class="tl-title">Microsoft — Power BI &amp; Tableau</div>
-        <div class="tl-desc">Certified in enterprise data visualization platforms. Applied skills building interactive dashboards for trading analysis, financial metrics, and market data interpretation.</div>
+        <div class="tl-role">Education</div>
+        <div class="tl-title">B.Tech — Artificial Intelligence &amp; Data Science</div>
+        <div class="tl-desc">Dr N.G.P. Institute of Technology, Coimbatore (Jan 2023 – Jan 2027). CGPA: 8.2 till 5th semester. Deep focus on AI, machine learning, financial technology, and computer vision. Projects spanning gesture recognition, healthcare AI, financial dashboards, and assistive technology.</div>
       </div>
     </div>
 
@@ -1787,8 +1908,8 @@ footer span {
       <div class="tl-line"></div>
       <div class="tl-content">
         <div class="tl-role">Foundation</div>
-        <div class="tl-title">Began Engineering — AI Focus Declared</div>
-        <div class="tl-desc">Started the Computer Science degree with a deliberate specialization in artificial intelligence and data science. First projects in Python, algorithms, and foundational ML concepts.</div>
+        <div class="tl-title">HSC — Computer Science &amp; Mathematics</div>
+        <div class="tl-desc">Venkatalakshmi Matric Higher Secondary School (Apr 2022 – May 2023). Percentage: 78%. Strong foundation in mathematics and computer science, setting the stage for an AI-focused engineering career.</div>
       </div>
     </div>
   </div>
@@ -1906,43 +2027,131 @@ footer span {
       <div class="skill-card">
         <span class="skill-card-icon">🐍</span>
         <div class="skill-card-title">Python Development</div>
-        <div class="skill-card-desc">Clean, production-ready Python. REST APIs, automation scripts &amp; ML model pipelines.</div>
+        <div class="skill-card-desc">Clean, production-ready Python for ML pipelines, data analysis, automation scripts, and API integrations.</div>
         <div class="skill-card-tags">
           <span class="skill-tag">Python</span>
-          <span class="skill-tag">Flask</span>
-          <span class="skill-tag">FastAPI</span>
+          <span class="skill-tag">Pandas</span>
+          <span class="skill-tag">NumPy</span>
         </div>
       </div>
       <div class="skill-card">
-        <span class="skill-card-icon">⚛</span>
+        <span class="skill-card-icon">🌐</span>
         <div class="skill-card-title">Frontend Development</div>
-        <div class="skill-card-desc">Responsive web interfaces, interactive data dashboards &amp; portfolio sites.</div>
+        <div class="skill-card-desc">Responsive web interfaces and interactive data dashboards using HTML/CSS with a focus on clarity and usability.</div>
         <div class="skill-card-tags">
-          <span class="skill-tag">React</span>
-          <span class="skill-tag">HTML/CSS</span>
+          <span class="skill-tag">HTML</span>
+          <span class="skill-tag">CSS</span>
           <span class="skill-tag">JavaScript</span>
         </div>
       </div>
       <div class="skill-card">
-        <span class="skill-card-icon">🔧</span>
-        <div class="skill-card-title">DevOps &amp; Systems</div>
-        <div class="skill-card-desc">Version control, Linux environment, CI/CD basics &amp; cloud deployment fundamentals.</div>
+        <span class="skill-card-icon">🗄</span>
+        <div class="skill-card-title">Database Management</div>
+        <div class="skill-card-desc">Relational database design, complex SQL queries, and data management pipelines for analytics workloads.</div>
         <div class="skill-card-tags">
-          <span class="skill-tag">Git</span>
-          <span class="skill-tag">Linux</span>
-          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">DBMS</span>
         </div>
       </div>
       <div class="skill-card">
         <span class="skill-card-icon">🎨</span>
-        <div class="skill-card-title">UI/UX &amp; HCI</div>
-        <div class="skill-card-desc">Human-computer interaction design, usability, accessibility &amp; cognitive ergonomics.</div>
+        <div class="skill-card-title">Human-Computer Interaction</div>
+        <div class="skill-card-desc">Interaction design, cognitive ergonomics, usability principles, and accessibility — NPTEL ELITE + GOLD certified.</div>
         <div class="skill-card-tags">
           <span class="skill-tag">NPTEL ELITE+GOLD</span>
-          <span class="skill-tag">Figma</span>
           <span class="skill-tag">UX Research</span>
+          <span class="skill-tag">HCI</span>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     INTERESTS — ANIMATED CARDS
+════════════════════════════════════════════════════════════════ -->
+<section id="interests" aria-label="Areas of Interest">
+  <div class="interests-media" aria-hidden="true">
+    <img
+      src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=60&auto=format&fit=crop"
+      alt="" loading="lazy" decoding="async" width="1920" height="1080"
+    >
+    <div class="interests-media-overlay"></div>
+  </div>
+
+  <div class="interests-inner">
+    <div class="section-label reveal">Passions</div>
+    <h2 class="interests-heading reveal reveal-d1">
+      Areas of<br>
+      <span class="outline">Interest</span>
+    </h2>
+
+    <div class="interests-grid">
+
+      <div class="interest-card reveal">
+        <span class="interest-icon">🧠</span>
+        <div class="interest-title">Artificial Intelligence</div>
+        <div class="interest-desc">Fascinated by the frontiers of AI — from neural architectures to real-world deployment of intelligent systems that reason and adapt.</div>
+        <span class="interest-tag">Core Domain</span>
+      </div>
+
+      <div class="interest-card reveal reveal-d1">
+        <span class="interest-icon">🤖</span>
+        <div class="interest-title">Machine Learning</div>
+        <div class="interest-desc">Deep interest in supervised, unsupervised, and reinforcement learning paradigms and their applications across industries.</div>
+        <span class="interest-tag">Research Focus</span>
+      </div>
+
+      <div class="interest-card reveal reveal-d2">
+        <span class="interest-icon">📈</span>
+        <div class="interest-title">Financial Market Analysis</div>
+        <div class="interest-desc">Analyzing financial markets, identifying trends and opportunities through data-driven research, technical indicators, and quantitative methods.</div>
+        <span class="interest-tag">Primary Interest</span>
+      </div>
+
+      <div class="interest-card reveal reveal-d1">
+        <span class="interest-icon">💹</span>
+        <div class="interest-title">Investment Research</div>
+        <div class="interest-desc">In-depth investment analysis across equities and financial instruments. NISM certified with interest in the Indian capital markets ecosystem.</div>
+        <span class="interest-tag">FinTech</span>
+      </div>
+
+      <div class="interest-card reveal reveal-d2">
+        <span class="interest-icon">👁</span>
+        <div class="interest-title">Computer Vision</div>
+        <div class="interest-desc">Building systems that see and interpret the visual world — gesture recognition, object detection, and scene understanding for assistive technology.</div>
+        <span class="interest-tag">Active Projects</span>
+      </div>
+
+      <div class="interest-card reveal reveal-d3">
+        <span class="interest-icon">📊</span>
+        <div class="interest-title">Data Analytics</div>
+        <div class="interest-desc">Transforming raw data into actionable insights through visualization, statistical modeling, and storytelling with platforms like Power BI and Tableau.</div>
+        <span class="interest-tag">Applied Skill</span>
+      </div>
+
+      <div class="interest-card reveal reveal-d1">
+        <span class="interest-icon">⚙️</span>
+        <div class="interest-title">AI-driven Automation</div>
+        <div class="interest-desc">Focused on developing AI-driven projects that automate complex processes, reduce inefficiency, and improve outcomes at scale.</div>
+        <span class="interest-tag">Engineering</span>
+      </div>
+
+      <div class="interest-card reveal reveal-d2">
+        <span class="interest-icon">🔬</span>
+        <div class="interest-title">Research &amp; Innovation</div>
+        <div class="interest-desc">Driven by intellectual curiosity — exploring emerging AI research, reading academic papers, and translating novel ideas into working prototypes.</div>
+        <span class="interest-tag">Academic</span>
+      </div>
+
+      <div class="interest-card reveal reveal-d3">
+        <span class="interest-icon">🚀</span>
+        <div class="interest-title">Future Technologies</div>
+        <div class="interest-desc">Enthusiastic about quantum computing, generative AI, and the convergence of AI with FinTech — technologies shaping the decade ahead.</div>
+        <span class="interest-tag">Emerging Tech</span>
+      </div>
+
     </div>
   </div>
 </section>
@@ -2203,33 +2412,39 @@ footer span {
     </h2>
     <div class="courses-grid">
       <div class="cc reveal">
-        <div class="cc-org">NPTEL</div>
+        <div class="cc-org">NPTEL — IIT</div>
         <div class="cc-name">Human Computer Interaction</div>
+        <div style="font-size:.8rem;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Feb – Apr 2026 · Interaction design, cognitive ergonomics, and UI/UX principles.</div>
         <span class="cc-badge">ELITE + GOLD ◆</span>
       </div>
       <div class="cc reveal reveal-d1">
-        <div class="cc-org">NPTEL</div>
+        <div class="cc-org">NPTEL — IIT</div>
         <div class="cc-name">Social Networks</div>
+        <div style="font-size:.8rem;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Jun – Nov 2025 · Network analysis, graph theory &amp; information diffusion.</div>
         <span class="cc-badge">ELITE ◆</span>
       </div>
       <div class="cc reveal reveal-d2">
         <div class="cc-org">Microsoft</div>
         <div class="cc-name">Power BI &amp; Tableau</div>
+        <div style="font-size:.8rem;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Enterprise data visualization and interactive dashboard design.</div>
         <span class="cc-badge">CERTIFIED ◆</span>
       </div>
       <div class="cc reveal reveal-d1">
         <div class="cc-org">Data Science</div>
-        <div class="cc-name">Data Visualization &amp; Matplotlib</div>
+        <div class="cc-name">Data Visualization using Matplotlib</div>
+        <div style="font-size:.8rem;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Plotting, charting &amp; data storytelling with Python's Matplotlib library.</div>
         <span class="cc-badge">COMPLETED ◆</span>
       </div>
       <div class="cc reveal reveal-d2">
         <div class="cc-org">NISM</div>
         <div class="cc-name">Investor Education</div>
+        <div style="font-size:.8rem;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Indian financial markets, equity instruments &amp; NSE ecosystem dynamics.</div>
         <span class="cc-badge">CERTIFIED ◆</span>
       </div>
       <div class="cc reveal reveal-d3">
         <div class="cc-org">LinkedIn Learning</div>
         <div class="cc-name">Data Analytics for Business Professionals</div>
+        <div style="font-size:.8rem;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Business-driven data analysis, insights generation &amp; decision support.</div>
         <span class="cc-badge">COMPLETED ◆</span>
       </div>
     </div>
@@ -2286,8 +2501,8 @@ footer span {
      FOOTER
 ════════════════════════════════════════════════════════════════ -->
 <footer>
-  <span>© 2024 Saravanan</span>
-  <span>AI · FinTech · Data Science · Coimbatore</span>
+  <span>© 2025 Saravanan</span>
+  <span>AI Engineer · FinTech Analyst · Data Science · Coimbatore</span>
   <span>saravananb600@gmail.com</span>
 </footer>
 
@@ -2637,11 +2852,12 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
       let start = 0;
       const duration = 1200;
       const t0 = performance.now();
+      const isDecimal = raw.includes('.');
       function step(ts) {
         const p = Math.min((ts - t0) / duration, 1);
         const ease = 1 - Math.pow(1 - p, 3);
         const val = target * ease;
-        numEl.textContent = (Number.isInteger(target) ? Math.floor(val) : val.toFixed(0)) + suffix;
+        numEl.textContent = (isDecimal ? val.toFixed(1) : (Number.isInteger(target) ? Math.floor(val) : val.toFixed(0))) + suffix;
         if (p < 1) requestAnimationFrame(step);
         else numEl.textContent = raw;
       }
@@ -2650,6 +2866,24 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     });
   }, { threshold: .5 });
   document.querySelectorAll('.stat').forEach(s => obs.observe(s));
+})();
+
+/* ══════════════════════════════════════
+   HERO ROLES CYCLING
+══════════════════════════════════════ */
+(function() {
+  const roles = document.querySelectorAll('.hero-role');
+  if (!roles.length) return;
+  let current = 0;
+
+  setInterval(() => {
+    const prev = current;
+    current = (current + 1) % roles.length;
+    roles[prev].classList.remove('active');
+    roles[prev].classList.add('exit');
+    setTimeout(() => { roles[prev].classList.remove('exit'); }, 600);
+    roles[current].classList.add('active');
+  }, 2800);
 })();
 </script>
 
